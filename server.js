@@ -2,6 +2,7 @@ const express = require('express');
 const dotenv = require('dotenv');
 const morgan = require('morgan');
 const colors = require('colors');
+const errorHandler = require('./middleware/error');
 const connectDB = require('./config/db');
 
 
@@ -18,6 +19,9 @@ const bootcamps = require('./routes/bootcamps');
 
 const app = express();
 
+// Body parser middleware so we can parse json in req.body
+app.use(express.json());
+
 // Dev logging middleware using morgan npm package
 if(process.env.NODE_ENV === 'development'){
     app.use(morgan('dev'));
@@ -27,6 +31,9 @@ if(process.env.NODE_ENV === 'development'){
 // This is done so you dont have to write out this path 
 // for every route in the bootcamps.js file
 app.use('/api/v1/bootcamps', bootcamps);
+
+// Error handler middleware
+app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
 
