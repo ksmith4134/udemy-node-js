@@ -15,6 +15,7 @@ connectDB();
 
 // Route files
 const bootcamps = require('./routes/bootcamps');
+const courses = require('./routes/courses');
 
 
 const app = express();
@@ -31,6 +32,7 @@ if(process.env.NODE_ENV === 'development'){
 // This is done so you dont have to write out this path 
 // for every route in the bootcamps.js file
 app.use('/api/v1/bootcamps', bootcamps);
+app.use('/api/v1/courses', courses);
 
 // Error handler middleware
 app.use(errorHandler);
