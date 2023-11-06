@@ -28,6 +28,12 @@ const errorHandler = (err, req, res, next) => {
         error = new ErrorResponse(message, 400);
     }
 
+    // Token expired
+    if(err.name === 'TokenExpiredError') {
+        const message = `Please log in again`;
+        error = new ErrorResponse(message, 401);
+    }
+
 
     res.status(error.statusCode || 500).json({
         success: false,
